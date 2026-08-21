@@ -1,4 +1,5 @@
 # jsd13-week08-find-my-hat
+This project is heavily assisted by ChatGPT AI.
 
 # Find My Hat 🎩
 
