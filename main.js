@@ -14,7 +14,7 @@ const outboundMessage = "🚫 You went out of bounds! Game over.";
 const hat = "^";
 const hole = "O";
 const fieldCharacter = "░";
-const pathCharacter = "*";
+const playerCharacter = "*";
 
 class Field {
   constructor(height = 10, width = 10, holePercentage = 20) {
@@ -42,7 +42,7 @@ class Field {
     }
 
     // Player starting position
-    field[0][0] = pathCharacter;
+    field[0][0] = playerCharacter;
 
     // Random holes location
     for (let y = 0; y < this.height; y++) {
@@ -148,7 +148,7 @@ function move() {
     field.playerLocation.x = newX;
     field.playerLocation.y = newY;
 
-    field.field[field.playerLocation.y][field.playerLocation.x] = pathCharacter;
+    field.field[field.playerLocation.y][field.playerLocation.x] = playerCharacter;
 
     console.clear();
     field.printField();
