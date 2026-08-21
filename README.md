@@ -1,34 +1,34 @@
 # jsd13-week08-find-my-hat
 
-Find My Hat 🎩
+# Find My Hat 🎩
 
 A simple terminal-based JavaScript game where you control a character and try to find the hidden hat without falling into a hole or leaving the field.
 
-🎮 How to Play
+## 🎮 How to Play
 
 Run the game with Node.js:
 
-node main.js
+`node main.js`
 
 
 Use the following keys to move:
 
-w — Move up
-a — Move left
-s — Move down
-d — Move right
-q — Quit the game
+* w — Move up
+* a — Move left
+* s — Move down
+* d — Move right
+* q — Quit the game
 
 Your character is represented by *.
 
 Your goal is to reach the hat:
 
-^
+`^`
 
 
 Avoid holes:
 
-O
+`O`
 
 
 and don't move outside the field.
