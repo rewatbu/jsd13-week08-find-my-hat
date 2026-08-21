@@ -1,8 +1,5 @@
 // This is a Find My Hat app
 
-// console.log("Welcome to 'Find My ^ Hat'");
-// console.log("press 'w,a,s,d' to move and 'q' to quit");
-
 const readline = require("readline");
 
 const input = readline.createInterface({
@@ -20,35 +17,92 @@ const fieldCharacter = "░";
 const pathCharacter = "*";
 
 class Field {
-  constructor(field) {
-    this.field = field;
+  constructor(height = 10, width = 10, holePercentage = 20) {
+    this.height = height;
+    this.width = width;
+    this.holePercentage = holePercentage;
     this.playerLocation = {
       x: 0,
       y: 0,
     };
+    this.field = this.generateField();
   }
+
+  generateField() {
+    const field = [];
+
+    for (let y = 0; y < this.height; y++) {
+        const row = [];
+
+        for (let x = 0; x < this.width; x++) {
+            row.push(fieldCharacter);
+        }
+
+        field.push(row);
+    }
+
+    // Player starting position
+    field[0][0] = pathCharacter;
+
+    // Random holes location
+    for (let y = 0; y < this.height; y++) {
+        for (let x = 0; x < this.width; x++) {
+            // not at a starting position
+            if (x === 0 && y === 0) {
+                continue;
+            }
+
+            if (Math.random() * 100 < this.holePercentage) {
+                field[y][x] = hole;
+            }
+        }
+    }
+
+    let hatX;
+    let hatY;
+
+    do {
+        hatX = Math.floor(Math.random() * this.width);
+        hatY = Math.floor(Math.random() * this.height);
+    } while (
+        (hatX === 0 && hatY === 0) ||
+        field[hatY][hatX] === hole
+    );
+
+    field[hatY][hatX] = hat;
+
+    return field;
+  } 
 
   printField() {
     console.log(this.field.map((row) => row.join("")).join("\n"));
   }
 }
 
-const field = new Field([
-  ["*", "░", "░"],
-  ["░", "░", "░"],
-  ["░", "░", "^"],
-]);
+// const field = new Field([
+//   ["*", "░", "░"],
+//   ["░", "░", "░"],
+//   ["░", "░", "^"],
+// ]);
+
+const field = new Field();
 
 field.printField();
 
 function move() {
-  input.question("press w,a,s,d or q to quit: ", (keyinput) => {
-    let k = keyinput;
+  input.question("\npress w,a,s,d or q to quit: ", (keyinput) => {
+    const k = keyinput.toLowerCase().trim();
       
     if (k === "q") {
     console.log("Goodbye! Have a nice day.");
     input.close();
     return;
+    }
+
+    if (!["w", "a", "s", "d"].includes(k)) {
+        console.log("Please enter w, a, s, d, or q!");
+        move()
+        return;
     }
       
     let newX = field.playerLocation.x;
@@ -62,10 +116,7 @@ function move() {
       newY++;
     } else if (k === "d") {
       newX++;
-    } //else {
-    //     console.log("Please enter w, a, s, d, or q.");
-    //     return;
-    // }
+    } 
 
     if (
       newX < 0 ||
