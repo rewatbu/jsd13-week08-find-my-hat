@@ -1,7 +1,14 @@
 // This is a Find My Hat app
 
-console.log("Welcome to 'Find My ^ Hat'");
-console.log("press 'w,a,s,d' to move and 'q' to quit");
+// console.log("Welcome to 'Find My ^ Hat'");
+// console.log("press 'w,a,s,d' to move and 'q' to quit");
+
+const readline = require("readline");
+
+const input = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
 const winMessage = "🎉 You found the hat! You win!";
 const holeMessage = "💀 You fell into a hole! Game over.";
@@ -35,16 +42,15 @@ const field = new Field([
 field.printField();
 
 function move() {
-  const readline = require("readline");
-
-  const input = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
   input.question("press w,a,s,d or q to quit: ", (keyinput) => {
     let k = keyinput;
-
+      
+    if (k === "q") {
+    console.log("Goodbye! Have a nice day.");
+    input.close();
+    return;
+    }
+      
     let newX = field.playerLocation.x;
     let newY = field.playerLocation.y;
 
@@ -56,7 +62,10 @@ function move() {
       newY++;
     } else if (k === "d") {
       newX++;
-    }
+    } //else {
+    //     console.log("Please enter w, a, s, d, or q.");
+    //     return;
+    // }
 
     if (
       newX < 0 ||
@@ -89,14 +98,6 @@ function move() {
     field.playerLocation.y = newY;
 
     field.field[field.playerLocation.y][field.playerLocation.x] = pathCharacter;
-
-    if (k === "q") {
-      console.log("Goodbye! Have a nice day.");
-      input.close();
-      return;
-    }
-
-    input.close();
 
     console.clear();
     field.printField();
