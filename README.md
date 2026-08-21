@@ -35,10 +35,10 @@ and don't move outside the field.
 
 ## 🗺️ Game Characters
 Character   Meaning 
-`*	`        Player's current position
-`^    `      Hat
-`O	    `    Hole
-`░	     `   Open field
+"*"         Player's current position
+"^"         Hat
+"O"         Hole
+"░"         Open field
 
 ## 🏆 Game Conditions
 
